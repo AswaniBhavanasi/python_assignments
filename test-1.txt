@@ -1,0 +1,184 @@
+1. Write a program to fetch all odd elements into one list and even elements into
+another lis?
+lst = [10,20,30,40,50,60,70,80,90,100]
+lst1=[]
+lst2=[]
+for i in lst:
+    if i%2==0:
+        lst1.append(i)
+    else:
+        lst2.append(i)
+print("Even elements: ",lst1)
+print("Odd elements: ",lst2)
+#o/p:Even elements:  [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+#Odd elements:  []
+'''
+#2. Write a program to fetch all words which has more than 5 characters?
+'''lst=[]
+st=input('Enter a String: ')
+for i in st.split():
+    if len(i)==5:
+        lst.append(i)
+
+
+print(lst)
+print([i for i in st.split() if len(i)==5])
+'''
+
+#o/p:Enter a String:  I have good skill         ['skill']
+
+#3. Write a program to fetch all numbers which are divisible by 3 and 5?
+'''Lst=[5,9,15,20,25,30,35,40]
+lst=[]
+for i in Lst:
+    if i%3==0 and i%5==0:
+        lst.append(i)
+print(lst)
+
+
+print([i for i in Lst if i%3==0 and i%5==0])
+#o/p:[15, 30]'''
+
+#4. Take one dict with 3 pairs, write a program to add new pair into that existing dict?
+'''
+dct={'name':'Ruksana','Branch':'CSE','PassYear':2022}
+
+dct['Loc']='Guntur'
+print(dct)'''
+#o/p:{'name': 'Ruksana', 'Branch': 'CSE', 'PassYear': 2022, 'Loc': 'Guntur'}
+
+#5. Take a dict with 3 pairs, write a program to update any one value?
+'''
+dct={'name':'Ruksana','Branch':'CSE','PassYear':2022}
+dct['name']='Suheera'
+print(dct)'''
+#o/p:{'name': 'Suheera', 'Branch': 'CSE', 'PassYear': 2022}
+
+'''6. Write a function called hi_bye() that takes a number given by user.
+-If the number is divisible by 3, it should return “Hi”.
+-If it is divisible by 5, it should return “Bye”.
+-If it is divisible by both 3 and 5, it should return “HiBye”.
+-Otherwise, it should return the same number
+
+n=eval(input('Enter a Number: '))
+def hi_bye(n):
+    if n%3==0 and n%5==0:
+        print("HiBye")
+    elif n%5==0:
+        print("Bye")
+    elif n%3==0:
+        print("Hi")
+    else:
+        print(n)
+hi_bye(n)
+o/p:Enter a Number: 15
+HiBye
+
+Enter a Number: 20
+Bye
+'''
+'''
+7. WAP to insert * in place of every vowels in the string.
+Input: Python Narayana Tech House
+Output: Pyth*n N*r*y*n* T*ch H**s*
+
+st='Python Narayana Tech House'
+s=""
+for i in range(len(st)):
+    if st[i].lower()=='a' or st[i].lower()=='e' or st[i].lower()=='i' or st[i].lower()=='o' or st[i].lower()=='u':
+        s=s+'*'
+    else:
+        s=s+st[i]
+print(s)
+
+'''
+#o/p:Pyth*n N*r*y*n* T*ch H**s*
+            
+#8. Take one dict with 3 pairs, write a program to add new pair into that existing dict?
+
+dt={'a':10,'b':20,'c':30}
+dt['d']=40
+print(dt)
+#o/p:{'a': 10, 'b': 20, 'c': 30, 'd': 40}
+
+#9. Take a dict with 3 pairs, write a program to update any one value?
+
+
+dt={'a': 10, 'b': 20, 'c': 30, 'd': 40}
+dt['a']=100
+print(dt)
+#o/p:{'a': 100, 'b': 20, 'c': 30, 'd': 40}
+'''10.Write A Python function to get first letter of each word of complete string given by user?
+Note: Do not use pre-defined functions
+Eg:
+input: "python narayana tech house"
+output: "Python Narayana Tech House"
+A program on Moonlighting
+res=[]
+st=input('Enter a String: ')
+def FirstLetterUpper(st):
+    for i in st.split():
+        res.append(i[0].upper()+i[1:])
+    print(' '.join(res))
+        
+FirstLetterUpper(st)
+
+o/p:Enter a String: python narayana tech house
+Python Narayana Tech House'''
+
+
+emps = {
+'emp1':{'name':'Rajesh', 'salaries':{'TCS':30000,'Wipro':40000,'Infosys':55000},
+'age':25, 'location':'Hyderabad'},
+'emp2':{'name':'Kumar', 'salaries':{'CTS':40000,'NTH':60000,'Infosys':90000}, 'age':35,
+'location':'Hyderabad'},
+'emp3':{'name':'Satya',
+'salaries':{'DeepCompute':20000,'Wipro':40000,'Infosys':50000}, 'age':22,
+'location':'Bangalore'},
+'emp4':{'name':'Saroj', 'salaries':{'AXA':30000,'Infosys':40000,'Ignify':60000,
+'Atos':65000}, 'age':30, 'location':'Chennai'},
+}
+#11.Write a program to fetch all employees names who is working in Hyderabad?
+
+
+print([emps[i]['name'] for i in emps if emps[i]['location']=='Hyderabad'])
+#o/p:['Rajesh', 'Kumar']
+
+#12.Write a program to fetch all employees who age is more then 30 years?
+
+print([emps[i]['name'] for i in emps if emps[i]['age']>30])
+#o/p:['Kumar']
+
+#13.Write a program to fetch all employees names who is working in Infosys?
+
+print([emps[i]['name'] for i in emps if 'Infosys' in emps[i]['salaries']])
+#o/p:['Rajesh', 'Kumar', 'Satya', 'Saroj']
+
+#14.Write a program to count total number of employees in Infosys?
+
+print(len([emps[i]['name'] for i in emps if 'Infosys' in emps[i]['salaries']]))
+#o/p: 4
+#15.Write a program to count total number of employees working in Bangalore?
+
+print(len([i for i in emps if emps[i]['location']=='Bangalore']))
+#o/p:1
+#16.Write a program to display employee name who is working in NTH company?
+
+print([emps[i]['name'] for i in emps if 'NTH' in emps[i]['salaries']])
+#o/p:['Kumar']
+#17.Write a program to update the salary of Saroj in Axa company to 35000?
+
+for i in emps:
+    if emps[i]['name']=='Saroj':
+        emps[i]['salaries']['AXA']=35000
+        print(emps[i]['salaries'])
+#O/P:{'AXA': 35000, 'Infosys': 40000, 'Ignify': 60000, 'Atos': 65000}
+
+#18.Write a program to display all employees names who is working in more then 3 companies?
+
+for i in emps:
+    if len(emps[i]['salaries'])>3:
+        print(emps[i]['name'])
+
+#o/p:Saroj
+

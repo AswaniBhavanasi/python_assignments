@@ -1,0 +1,104 @@
+employees = {
+'emp1':{'name':'Sai', 'salary':20000, 'company':['TCS','Capgemini','Infosys'], 'hTown':'Hyd'},
+'emp2':{'name':'Nani','salary':30000, 'company':['Wipro','NTH'], 'hTown':'Bangalore'},
+'emp3':{'name':'Satya','salary':40000, 'company':['NTH','Infosys','CTS'],'hTown':'Chennai'},
+'emp4':{'name':'Rohit','salary':25000, 'company':['Infosys','TCS','Defteam'], 'hTown':'Pune'},
+'emp5':{'name':'Mohan','salary':22000, 'company':['NTH','HCL','DeepCompute'], 'hTown':'Hyd'},
+'emp6':{'name':'Sanjay','salary':45000, 'company':['Wipro','Infosys','Defteam'], 'hTown':'Mumbai'}
+}
+1. Write a program to display the salary of Sai?
+
+print(employees['emp1']['salary'])     
+    
+2. Write a program to display the home town of Nani?
+
+print(employees['emp2']['hTown']) 
+
+3. Write a program to display employee name who is working in Pune?
+   if employees['emp4']['hTown'] == 'Pune':
+       print(employees['emp4']['name'])
+
+for i in employees:
+   if 'Pune' in employees[i]['hTown']:
+       print(employees[i]['name'])
+
+4. Write a program to display all companies names of Satya?
+
+print(employees['emp3']['company'])
+
+5. Write a program to display all employees names who worked in TCS?
+for i in employees:
+   if 'TCS' in employees[i]['company']:
+        print(employees[i]['name'])
+6. Write a program to display all employees names who did not work in Infosys?
+for i in employees:
+   if 'Infosys'  not in employees[i]['company']:
+        print(employees[i]['name'])
+
+7. Write a program to display all employees names?
+for i in employees:
+   print(employees[i]['name'])
+8. Write a program to display the sum of all salaries?
+s=0
+for i in employees:
+   s=s+employees[i]['salary']
+print(S)
+9. Write a program to display the latest company of Rohit?
+for i in employees:
+	if employees[i]['name']=='rohit':
+   j=employees[i]['company']
+print(j[-1])
+10. Write a program to display total companies count of Satya?
+for i in employees:
+	if employees[i]['name']=='satya':
+print(len(employees[i]['company']))
+11. Write a program to display the employee name who is working in HCL?
+for i in employees:
+	if 'HCL' employees[i]['company']:
+print(employees[i]['name'])
+12. Write a program to display employees names who are working in Hyd?
+for i in employees:
+	if employees[i]['hTown']=='HYD':
+print(employees[i]['name'])
+13. Write a program to display all employees whose name starts with 'S' character?
+for i in employees:
+	if employees[i]['name'].startswith['s']:
+print(employees[i]['name'])
+14. Write a program to display all employees whose name ends with vowel?
+for i in employees:
+	if employees[i]['name'].endsswith(('a','e','i','o','u')):
+print(employees[i]['name'])
+
+15. Write a program to display the employee name who worked only in two companies?
+for i in employees:
+	if len(employees[i]['company'])==2:
+print(employees[i]['name'])
+16. Write a program to display employee names who worked in DeepCompute?
+
+for i in employees:
+	if 'Deepcompute'  in employees[i]['company']:
+print(employees[i]['name'])
+ 
+17. Write a program to display the salary of Pune employee?
+for i in employees:
+	if  employees[i]['hTown']=='pune':
+print(employees[i]['salary'])
+18. Write a program to display the location of employee who is taking 20000 salary?
+
+for i in employees:
+	if  employees[i]['salary']==20000:
+print(employees[i]['hTown'])
+19. Write a program to display the salaries of Sai and Nani?
+
+for i in employees:
+	if  employees[i]['name']=='Sai':
+print(employees[i]['salary'])
+	if  employees[i]['name']=='Nani':
+print(employees[i]['salary'])
+
+20. Write a program to display the name and salary of Bangalore employee?
+for i in employees:
+	if  employees[i]['hTown']=='Bangalore':
+print(employees[i]['name'])
+	if  employees[i]['hTown']=='Bangalore':
+print(employees[i]['salary'])

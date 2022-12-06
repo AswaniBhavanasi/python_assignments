@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+<frameset rows="20%,80%">
+<frame name="main" src="main.html"/>
+<frameset cols="30%,70%">
+<frame name="top" src="main1.html"/>
+
+<frame name="bottom" src="main2.html"/>
+</frameset>
+</frameset>
+</html>

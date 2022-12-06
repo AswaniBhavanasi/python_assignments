@@ -1,0 +1,249 @@
+Joins
+-----
+Joins are used to fetch the data from multiple tables.
+
+Types of joins:
+---------------
+a. Inner Join
+b. Outer Join
+	1. Left Outer Join
+	2. Right Outer Join
+	3. Full Outer Join
+c. Cross Join
+
+
+
+Here,
+a. Students table contains 1,2,3,4 and 5
+b. 1,2, and 3 are having matching with Course Table
+c. 4 and 5 belongs to only students table data
+
+d. Course table contains 1,2,3,6 and 7
+e. 1,2 and 3 are having matching with Student Table
+f. 6 and 7 belongs to only Course table data.
+
+Inner Join
+==========
+It is used to fetch the matching data from both tables.
+
+Syn:
+select * 
+from <left_table> inner join <right_table>
+on <left_table.common_column> = <right_table.common_column>;
+
+Eg:
+select *
+from students inner join course
+on students.sid = course.sno;
++------+-------+------+------+--------+------+------+
+| sid  | sname | loc  | cid  | cname  | fee  | sno  |
++------+-------+------+------+--------+------+------+
+|    1 | Sai   | Hyd  |   10 | Python | 3000 |    1 |
+|    2 | Nani  | Hyd  |   11 | Django | 3000 |    2 |
+|    3 | Satya | Pune |   12 | Flask  | 1000 |    3 |
++------+-------+------+------+--------+------+------+
+3 rows in set (0.00 sec)
+
+
+
+Note: If both table are having common columns then we use table name alongwith column while displaying, like below
+Eg:
+select students.sid, course.sno
+from students inner join course
+on students.sid = course.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+
+Note: We use alias name for table when we need to repeat the same table name multiple times. 
+Eg:
+select s.sid, c.sno
+from students as s inner join course as c
+on s.sid = c.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+
+
+Left Outer Join 
+===============
+It is used to fetch the matching data from both tables and also unmatching data from left table.
+
+Syn:
+select * 
+from <left_table> left outer join <right_table>
+on <left_table.common_col> = <right_table.common_col>;
+
+
+Eg:
+select sid, sno
+from students left outer join course 
+on students.sid = course.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
+|    4 | NULL |
+|    5 | NULL |
++------+------+
+
+If we want to display only unmatching data from students table then we compare null values in where condition like below
+
+Eg:
+select sid
+from students left outer join course 
+on students.sid = course.sno
+where course.sno is null;
++------+
+| sid  |
++------+
+|    4 |
+|    5 |
++------+
+
+Write a query to display students names who are not learning any course?
+
+
+select sname
+from students left outer join course 
+on students.sid = course.sno
+where course.cname is null;
++--------+
+| sname  |
++--------+
+| Rohan  |
+| Rajesh |
++--------+
+
+Write a query to display students names who are learning courses?
+
+select sname
+from students left outer join course 
+on students.sid = course.sno
+where course.cname is not null;
++-------+
+| sname |
++-------+
+| Sai   |
+| Nani  |
+| Satya |
++-------+
+
+
+Right Outer Join 
+================
+It is used to fetch the matching data from both tables and unmatching data from right table.
+
+Syn:
+select *
+from <left_table> rigth outer join <right_table>
+on <left_table.common_column> = <right_table.common_column>;
+
+
+Eg
+select sid, sno
+from students right outer join course
+on students.sid = course.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
+| NULL |    6 |
+| NULL |    7 |
++------+------+
+
+Write a query to display course names which are not learning by any student?
+
+select cname
+from students right outer join course
+on students.sid = course.sno
+where students.sname is null;
++-------+
+| cname |
++-------+
+| UI    |
+| MySQL |
++-------+
+
+Full Outer Join 
+==============
+It is used to fetch matching data from both tables
++
+unmatching data from left table 
++
+unmatching data from right table
+
+Syn:
+left outer join 
+union
+right outer join 
+
+Eg:
+select sid,sno from students left outer join course on students.sid = course.sno
+union
+select sid, sno from students right outer join course on students.sid = course.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
+|    4 | NULL |
+|    5 | NULL |
+| NULL |    6 |
+| NULL |    7 |
++------+------+
+
+Cross join 
+==========
+It is also called cartesian product that means every id from left table match with all ids from right table.
+If left table contains m rows and right table contains n rows then the result of cartesian product is m*n rows.
+
+Syn:
+select *
+from <left_table>, <right_table>;
+
+Eg:
+select sid,sno
+from students, course;
+sid  sno
+1     1
+1     2
+1     3
+1     6
+1     7
+...
+5     1
+5     2
+5     3
+5     6
+5     7
+
+If we apply where condition on cross join then it will result like inner join, like below
+Eg:
+select sid,sno
+from students, course
+where sid = sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+
+
+
+

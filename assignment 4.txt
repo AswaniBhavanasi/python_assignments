@@ -1,0 +1,282 @@
+ select * from employeesdata;
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+| empid | first_name | last_name  | age  | company   | salary | location | skill  | experience | marital_status |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+|   101 | virat      | kohli      |   22 | tcs       |  20000 | hyd      | python |          2 | unmarried      |
+|   102 | rohit      | sharma     |   24 | wipro     |  30000 | delhi    | django |          3 | unmarried      |
+|   103 | surya      | yadav      |   20 | infosys   |  19000 | chennai  | python |          1 | unmarried      |
+|   104 | sachin     | tendulkarm |   25 | microsoft |  35000 | mumbai   | flask  |          9 | married        |
+|   105 | hardik     | panday     |   22 | tcs       |  20000 | delhi    | flask  |          1 | unmarried      |
+|   106 | rishabn    | pant       |   23 | cts       |  23000 | mumbai   | java   |          2 | unmarried      |
+|   107 | jasprit    | bumrah     |   21 | microsoft |  26000 | hyd      | flask  |          2 | unmarried      |
+|   108 | dinesh     | karthik    |   24 | cts       |  24000 | delhi    | java   |          3 | married        |
+|   109 | sanju      | samson     |   22 | infosys   |  22500 | chennai  | python |          2 | unmarried      |
+|   110 | ms         | dhoni      |   25 | tcs       |  30000 | chennai  | python |          5 | married        |
+|   111 | ravindra   | jadeja     | NULL | infosys   |  29000 | mumbai   | django |          4 | married        |
+|   112 | kuldeep    | yadav      |   30 | microsoft |  28000 | delhi    | python |          4 | married        |
+|   113 | axar       | patel      | NULL | cts       |  27000 | chennai  | java   |          5 | married        |
+|   114 | ambati     | rayudu     |   28 | tcs       |  31000 | delhi    | python |          5 | married        |
+|   115 | gautham    | gambhir    |   31 | microsoft |  32000 | chennai  | python |          6 | married        |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> select * from productsdata;
++------+----------+-------+-----------+----------+-------------+------+
+| pid  | pname    | pcost | pdiscount | pquality | mfg_company | eno  |
++------+----------+-------+-----------+----------+-------------+------+
+| 1001 | Laptop   | 50000 |      1000 | First    | Dell        |  101 |
+|1002  | TV       | 45000 |      4500 | First    | Sony        |  102 |
+| 1003 | Mobile   | 30000 |      1000 | Second   | Samsung     |  103 |
+| 1004 | Computer | 25000 |         0 | Second   | Sony        |  101 |
+| 1005 | Mouse    |  1000 |         0 | Third    | Dell        |  102 |
+| 1006 | Table    |  2000 |       100 | First    | Dell        |  104 |
+| 1007 | Pen      |  1000 |       200 | First    | Reynolds    |  105 |
+| 1008 | Printer  | 14000 |       500 | Second   | EPSON       |  106 |
+| 1009 | Chair    |  5000 |         0 | Third    | EPSON       | NULL |
+| 1010 | Bag      |  2000 |         0 | Second   | Dell        |  108 |
++------+----------+-------+-----------+----------+-------------+------+
+
+
+1. WAQTD all Employees and Their Products list?
+
+select * from employeesdata inner join productsdata
+on employeesdata.empid=productsdata.eno;
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+------+----------+-------+-----------+----------+-------------+------+
+| empid | first_name | last_name  | age  | company   | salary | location | skill  | experience | marital_status | pid  | pname    | pcost | pdiscount | pquality | mfg_company | eno  |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+------+----------+-------+-----------+----------+-------------+------+
+|   101 | virat      | kohli      |   22 | tcs       |  20000 | hyd      | python |          2 | unmarried      | 1001 | Laptop   | 50000 |      1000 | First    | Dell        |  101 |
+|   102 | rohit      | sharma     |   24 | wipro     |  30000 | delhi    | django |          3 | unmarried      | 1002 | TV       | 45000 |      4500 | First    | Sony        |  102 |
+|   103 | surya      | yadav      |   20 | infosys   |  19000 | chennai  | python |          1 | unmarried      | 1003 | Mobile   | 30000 |      1000 | Second   | Samsung     |  103 |
+|   101 | virat      | kohli      |   22 | tcs       |  20000 | hyd      | python |          2 | unmarried      | 1004 | Computer | 25000 |         0 | Second   | Sony        |  101 |
+|   102 | rohit      | sharma     |   24 | wipro     |  30000 | delhi    | django |          3 | unmarried      | 1005 | Mouse    |  1000 |         0 | Third    | Dell        |  102 |
+|   104 | sachin     | tendulkarm |   25 | microsoft |  35000 | mumbai   | flask  |          9 | married        | 1006 | Table    |  2000 |       100 | First    | Dell        |  104 |
+|   105 | hardik     | panday     |   22 | tcs       |  20000 | delhi    | flask  |          1 | unmarried      | 1007 | Pen      |  1000 |       200 | First    | Reynolds    |  105 |
+|   106 | rishabn    | pant       |   23 | cts       |  23000 | mumbai   | java   |          2 | unmarried      | 1008 | Printer  | 14000 |       500 | Second   | EPSON       |  106 |
+|   108 | dinesh     | karthik    |   24 | cts       |  24000 | delhi    | java   |          3 | married        | 1010 | Bag      |  2000 |         0 | Second   | Dell        |  108 |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+------+----------+-------+-----------+----------+-------------+------+
+
+2. WAQTD all Employees names who bought products?
+
+select first_name,last_name from  employeesdata inner join productsdata on employeesdata.empid=productsdata.eno group by empid;
+
++------------+------------+
+| first_name | last_name  |
++------------+------------+
+| virat      | kohli      |
+| rohit      | sharma     |
+| surya      | yadav      |
+| sachin     | tendulkarm |
+| hardik     | panday     |
+| rishabn    | pant       |                                                                                   
+| dinesh     | karthik    |
++------------+------------+
+
+3. WAQTD all Employees names who did not buy products?
+
+select first_name,last_name from  employeesdata left outer join productsdata on employeesdata.empid=productsdata.eno where productsdata.pid is null;
+
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| jasprit    | bumrah    |
+| sanju      | samson    |
+| ms         | dhoni     |
+| ravindra   | jadeja    |
+| kuldeep    | yadav     |
+| axar       | patel     |
+| ambati     | rayudu    |
+| gautham    | gambhir   |
++------------+-----------+
+
+4. WAQTD all Products which did not buy by any employee?
+
+select pname from  employeesdata right outer join productsdata on employeesdata.empid=productsdata.eno where productsdata.eno is null;
+
++-------+
+| pname |
++-------+
+| Chair |
++-------+
+
+5. WAQTD all Employees and Products names who bought First class quality products?
+
+select first_name ,pname  from employeesdata left outer join  productsdata on employeesdata.empid=productsdata.eno where  pquality='first';
+
++------------+--------+
+| first_name | pname  |
++------------+--------+
+| virat      | Laptop |
+| rohit      | TV     |
+| sachin     | Table  |
+| hardik     | Pen    |
++------------+--------+
+
+6. WAQTD all Employees, company, product names who working in Chennai Location?
+
+select first_name ,pname  from employeesdata left outer join  productsdata on employeesdata.empid=productsdata.eno where  location='chennai';
++------------+--------+
+| first_name | pname  |
++------------+--------+
+| surya      | Mobile |
+| sanju      | NULL   |
+| ms         | NULL   |
+| axar       | NULL   |
+| gautham    | NULL   |
++------------+--------+
+7. WAQTD all employee names who spent more then 20000 to buy products?
+
+select first_name  from employeesdata left outer join  productsdata on employeesdata.empid=productsdata.eno where  pcost>20000;
++------------+
+| first_name |
++------------+
+| virat      |
+| rohit      |
+| surya      |
+| virat      |
++------------+
+
+8. WAQTD all first names and product names who bought either Mouse or Computer?
+select first_name ,pname  from employeesdata right outer join  productsdata on employeesdata.empid=productsdata.eno where  pname='mouse' or pname= 'computer';
++------------+----------+
+| first_name | pname    |
++------------+----------+
+| virat      | Computer |
+| rohit      | Mouse    |
++------------+----------+
+
+9. WAQTD all first names, product names and cost who bought First class products?
+
+select first_name ,pname,cost  from employeesdata left outer join  productsdata on employeesdata.empid=productsdata.eno where pquality='first'; 
++------------+--------+-------+
+| first_name | pname  | pcost |
++------------+--------+-------+
+| virat      | Laptop | 50000 |
+| rohit      | TV     | 45000 |
+| sachin     | Table  |  2000 |
+| hardik     | Pen    |  1000 |
++------------+--------+-------+
+
+10. WAQTD all first names and product names which name starts with P Character?
+
+ select  first_name ,pname  from employeesdata right outer join  productsdata on employeesdata.empid=productsdata.eno where  pname like'p%'; 
++------------+---------+
+| first_name | pname   |
++------------+---------+
+| hardik     | Pen     |
+| rishabn    | Printer |
++------------+---------+
+11. WAQTD all product qualities?
+
+ select  pquality  from employeesdata inner join  productsdata on employeesdata.empid=productsdata.eno ;
++----------+
+| pquality |
++----------+
+| First    |
+| First    |
+| Second   |
+| Second   |
+| Third    |
+| First    |
+| First    |
+| Second   |
+| Second   |
++----------+
+
+12. WAQTD count of products based on qualities?
+
+select  pquality ,count(pname) from productsdata  group by pquality;
++----------+--------------+
+| pquality | count(pname) |
++----------+--------------+
+| First    |            4 |
+| Second   |            4 |
+| Third    |            2 |
++----------+--------------+
+3 rows in set (0.01 sec)
+
+13. WAQTD first names and product names who spent less amount to buy products?
+
+select  first_name ,pname  from employeesdata inner join  productsdata on employeesdata.empid=productsdata.eno  order by pcost asc limit 2;
++------------+-------+
+| first_name | pname |
++------------+-------+
+| rohit      | Mouse |
+| hardik     | Pen   |
++------------+-------+
+
+14. WAQTD first name and product name which is more costly?
+
+select  first_name ,pname  from employeesdata inner join  productsdata on employeesdata.empid=productsdata.eno  order by pcost desc limit 1;
++------------+--------+
+| first_name | pname  |
++------------+--------+
+| virat      | Laptop |
++------------+--------+
+
+15. WAQTD all first names who bought discount products?
+
+select first_name from employeesdata inner join  productsdata on employeesdata.empid=productsdata.eno  where productsdata.pdiscount ;
++------------+
+| first_name |
++------------+
+| virat      |
+| rohit      |
+| surya      |
+| sachin     |
+| hardik     |
+| rishabn    |
++------------+
+16. WAQTD all first names and product names which has more discount?
+
+select  first_name ,pname  from employeesdata inner join  productsdata on employeesdata.empid=productsdata.eno  order by pdiscount desc limit 1;
++------------+-------+
+| first_name | pname |
++------------+-------+
+| rohit      | TV    |
++------------+-------+
+
+17. WAQTD all first names, salary and product name which has least discount(above 0)?
+
+select  first_name ,salary,pname,pdiscount  from employeesdata inner join  productsdata on employeesdata.empid=productsdata.eno  where  productsdata.pdiscount order by salary desc limit 1;
++------------+--------+-------+-----------+
+| first_name | salary | pname | pdiscount |
++------------+--------+-------+-----------+
+| sachin     |  35000 | Table |       100 |
++------------+--------+-------+-----------+
+
+18. WAQTD all employee and product names which bought by married employee?
+
+select  first_name ,pname  from employeesdata inner join  productsdata on employeesdata.empid=productsdata.eno  where marital_status='married';
++------------+-------+
+| first_name | pname |
++------------+-------+
+| sachin     | Table |
+| dinesh     | Bag   |
++------------+-------+
+
+19. WAQTD the highest price of First Class Product?
+select  pname,pcost from employeesdata inner join  productsdata on employeesdata.empid=productsdata.eno  order by pcost desc limit 1;
++--------+-------+
+| pname  | pcost |
++--------+-------+
+| Laptop | 50000 |
++--------+-------+
+
+20. WAQTD first names, company names, product names and salaries of all employees?
+select first_name,company, pname,salary from employeesdata inner join  productsdata on employeesdata.empid=productsdata.eno ;
+
++------------+-----------+----------+--------+
+| first_name | company   | pname    | salary |
++------------+-----------+----------+--------+
+| virat      | tcs       | Laptop   |  20000 |
+| rohit      | wipro     | TV       |  30000 |
+| surya      | infosys   | Mobile   |  19000 |
+| virat      | tcs       | Computer |  20000 |
+| rohit      | wipro     | Mouse    |  30000 |
+| sachin     | microsoft | Table    |  35000 |
+| hardik     | tcs       | Pen      |  20000 |
+| rishabn    | cts       | Printer  |  23000 |
+| dinesh     | cts       | Bag      |  24000 |
++------------+-----------+----------+--------+
+
+

@@ -1,0 +1,615 @@
+ 
+select * from Orders1;
++----------+----------+------------------+-----------------+------+
+| order_id | quantity | shipping_address | made_in_country | pno  |
++----------+----------+------------------+-----------------+------+
+|    10001 |       10 | Hyderabad        | US              | 1001 |
+|    10002 |       25 | Bangalore        | Canada          | 1002 |
+|    10003 |        5 | Chennai          | Germany         | 1004 |
+|    10005 |        9 | Pune             | India           | 1005 |
+|    10006 |       12 | Hyderabad        | India           | 1006 |
+|    10007 |       50 | Pune             | China           | 1007 |
+|    10008 |      100 | Bangalore        | Canada          | 1003 |
+|    10009 |        2 | Chennai          | US              | 1008 |
++----------+----------+------------------+-----------------+------+
+mysql> select * from employeesdata;
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+| empid | first_name | last_name  | age  | company   | salary | location | skill  | experience | marital_status |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+|   101 | virat      | kohli      |   22 | tcs       |  20000 | hyd      | python |          2 | unmarried      |
+|   102 | rohit      | sharma     |   24 | wipro     |  30000 | delhi    | django |          3 | unmarried      |
+|   103 | surya      | yadav      |   20 | infosys   |  19000 | chennai  | python |          1 | unmarried      |
+|   104 | sachin     | tendulkarm |   25 | microsoft |  35000 | mumbai   | flask  |          9 | married        |
+|   105 | hardik     | panday     |   22 | tcs       |  20000 | delhi    | flask  |          1 | unmarried      |
+|   106 | rishabn    | pant       |   23 | cts       |  23000 | mumbai   | java   |          2 | unmarried      |
+|   107 | jasprit    | bumrah     |   21 | microsoft |  26000 | hyd      | flask  |          2 | unmarried      |
+|   108 | dinesh     | karthik    |   24 | cts       |  24000 | delhi    | java   |          3 | married        |
+|   109 | sanju      | samson     |   22 | infosys   |  22500 | chennai  | python |          2 | unmarried      |
+|   110 | ms         | dhoni      |   25 | tcs       |  30000 | chennai  | python |          5 | married        |
+|   111 | ravindra   | jadeja     | NULL | infosys   |  29000 | mumbai   | django |          4 | married        |
+|   112 | kuldeep    | yadav      |   30 | microsoft |  28000 | delhi    | python |          4 | married        |
+|   113 | axar       | patel      | NULL | cts       |  27000 | chennai  | java   |          5 | married        |
+|   114 | ambati     | rayudu     |   28 | tcs       |  31000 | delhi    | python |          5 | married        |
+|   115 | gautham    | gambhir    |   31 | microsoft |  32000 | chennai  | python |          6 | married        |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+mysql> select * from productsdata;
++------+----------+-------+-----------+----------+-------------+------+
+| pid  | pname    | pcost | pdiscount | pquality | mfg_company | eno  |
++------+----------+-------+-----------+----------+-------------+------+
+| 1001 | Laptop   | 50000 |      1000 | First    | Dell        |  101 |
+| 1002 | TV       | 45000 |      4500 | First    | Sony        |  102 |
+| 1003 | Mobile   | 30000 |      1000 | Second   | Samsung     |  103 |
+| 1004 | Computer | 25000 |         0 | Second   | Sony        |  101 |
+| 1005 | Mouse    |  1000 |         0 | Third    | Dell        |  102 |
+| 1006 | Table    |  2000 |       100 | First    | Dell        |  104 |
+| 1007 | Pen      |  1000 |       200 | First    | Reynolds    |  105 |
+| 1008 | Printer  | 14000 |       500 | Second   | EPSON       |  106 |
+| 1009 | Chair    |  5000 |         0 | Third    | EPSON       | NULL |
+| 1010 | Bag      |  2000 |         0 | Second   | Dell        |  108 |
++------+----------+-------+-----------+----------+-------------+------+
+
+1. WAQTD Employee name who bought first class products?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where pquality='first'));
+
++------------+
+| first_name |
++------------+
+| virat      |
+| rohit      |
+| sachin     |
+| hardik     |
++------------+
+ 
+2. WAQTD Employee name who bought Dell products which cost more then 20000?
+
+    select first_name from employeesdata where empid in(
+    -> select eno from productsdata where pid in(
+    -> select pno from  Orders1 where mfg_company='dell' and pcost>20000));
++------------+
+| first_name |
++------------+
+| virat      |
++------------+
+
+3. WAQTD Employee name who bought Second Class EPSON Company product?
+
+     select first_name from employeesdata where empid in(
+    select eno from productsdata where mfg_company='epson' and pquality='second');
+
++------------+
+| first_name |
++------------+
+| rishabn    |
++------------+
+
+4. WAQTD Employee name and skill who bought Samsung Company Mobile Product?
+
+select first_name,skill from employeesdata where empid in(
+  select eno from productsdata where mfg_company='samsung' and pname='mobile');
+
++------------+--------+
+| first_name | skill  |
++------------+--------+
+| surya      | python |
++------------+--------+
+
+5. WAQTD Employee name who is working in CTS and bought Bag?
+
+select first_name from employeesdata where empid in(
+  select eno from productsdata where company='cts' and pname='bag');
+++------------+
+| first_name |
++------------+
+| dinesh     |
++------------+
+
+6. WAQTD Employee name who bought products with 0 discount?
+
+select first_name from employeesdata where empid in(
+  select eno from productsdata where pdiscount=0);
++------------+
+| first_name |
++------------+
+| virat      |
+| rohit      |
+| dinesh     |
++------------+
+
+7. WAQTD Employee name who Second Class Quality Mobile Product?
+select first_name from employeesdata where empid in(
+  select eno from productsdata where pquality='second' and pname='mobile');
++------------+
+| first_name |
++------------+
+| surya      |
++------------+
+
+8. WAQTD Employee name who bought Third class products?
+
+select first_name from employeesdata where empid in(
+  select eno from productsdata where pquality='third');
+
++------------+
+| first_name |
++------------+
+| rohit      |
++------------+
+9. WAQTD Employee name who bought Third class product and getting Highest Salary?
+
+select first_name from employeesdata where empid in(
+  select eno from productsdata where pquality='third' and salary=(select max(salary) from productsdata));
++------------+
+| first_name |
++------------+
+| rohit      |
++------------+
+
+10. WAQTD Employee name who bought First Class Product which starts with P character?
+
+select first_name from employeesdata where empid in(
+  select eno from productsdata where pquality='first' and pname like 'p%');
+
++------------+
+| first_name |
++------------+
+| hardik     |
++------------+
+
+11. WAQTD Unmarried Employee name who bought pen?
+
+select first_name from employeesdata where empid in(
+  select eno from productsdata where pname='pen');
++------------+
+| first_name |
++------------+
+| hardik     |
++------------+
+
+12. WAQTD Employee names and Salaries who bought Dell Company Products?
+
+select first_name ,salary from employeesdata where empid in(
+  select eno from productsdata where  mfg_company='dell');
+
++------------+--------+
+| first_name | salary |
++------------+--------+
+| virat      |  20000 |
+| rohit      |  30000 |
+| sachin     |  35000 |
+| dinesh     |  24000 |
++------------+--------+
+
+13. WAQTD Company name which has more number of employees ?
+
+select company ,count(empid) from employeesdata group by company order by count(empid) desc  limit 2;
++-----------+--------------+
+| company   | count(empid) |
++-----------+--------------+
+| tcs       |            4 |
+| microsoft |            4 |
++-----------+--------------+
+14. WAQTD Married Employee name who is taking more salary
+
+select first_name ,salary from employeesdata where marital_status='married' order by salary desc limit 1;
+
++------------+--------+
+| first_name | salary |
++------------+--------+
+| sachin     |  35000 |
++------------+--------+
+15. WAQTD Married Employee name who bought either Dell or Samsung Company Products?
+
+
+select first_name from employeesdata where   marital_status='married' and empid in(select eno from productsdata  where mfg_company='dell' or mfg_company='samsung');
+
++------------+
+| first_name |
++------------+
+| sachin     |
+| dinesh     |
++------------+
+
+16. WAQTD Products names which are bought by married employees?
+
+select pname from productsdata where eno in(
+  select empid from employeesdata where  marital_status='married');
+
++-------+
+| pname |
++-------+
+| Table |
+| Bag   |
++-------+
+17. WAQTD Products names which are bought by TCS employees in Hyderabad on Python Skill?
+
+select pname from productsdata where eno in(
+  select empid from employeesdata where  company='tcs' and location ='hyd' and skill='python');
+
++----------+
+| pname    |
++----------+
+| Laptop   |
+| Computer |
++----------+
+
+18. WAQTD Products names and cost which is bought by Ms Dhoni?
+
+select pname,pcost from productsdata where eno in(
+  select empid from employeesdata where  first_name='ms');
+
+19. WAQTD Discount of Product which is bought by Mumbai Employee?
+
+select pdiscount from productsdata where eno in(
+  select empid from employeesdata where  location='mumbai');
+
++-----------+
+| pdiscount |
++-----------+
+|       100 |
+|       500 |
++-----------+
+20. WAQTD Product name which is bought by lowest salary employee?
+
+
+select pname from productsdata where eno in(
+  select empid from employeesdata where  salary=(select min(salary) from employeesdata));
++--------+
+| pname  |
++--------+
+| Mobile |
++--------+
+21. WAQTD Count total number of employees who are not buying single product also?
+
+select count(empid) from employeesdata where empid in(
+select eno from productsdata where pid not in(select eno from productsdata));
+
+
+22. WAQTD Product name and cost which is bought by youngest employee?
+
+select pname ,pcost from productsdata where eno in(
+  select empid from employeesdata where age>=25 );
++-------+-------+
+| pname | pcost |
++-------+-------+
+| Table |  2000 |
++-------+-------+
+
+23. WAQTD Product details which is bought by most experienced employee?
+
+ select pname  from productsdata where eno in(
+ select empid from employeesdata where experience =(select max(experience) from employeesdata));
++-------+
+| pname |
++-------+
+| Table |
++-------|
+
+24. WAQTD Product details which is not by any employee?
+
+ select  *  from productsdata where eno is null;
++------+-------+-------+-----------+----------+-------------+------+
+| pid  | pname | pcost | pdiscount | pquality | mfg_company | eno  |
++------+-------+-------+-----------+----------+-------------+------+
+| 1009 | Chair |  5000 |         0 | Third    | EPSON       | NULL |
++------+-------+-------+-----------+----------+-------------+------+
+
+25. WAQTD Product names which is bought by Microsoft emps who is getting more than 30000?
+
+ select pname  from productsdata where eno in(
+ select empid from employeesdata where company='microsoft' and salary>30000 );
+
++-------+
+| pname |
++-------+
+| Table |
++-------+
+26. WAQTD Employee name who ordered 10 products?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where quantity=10));
+
++------------+
+| first_name |
++------------+
+| virat      |
++------------+
+
+
+27. WAQTD Employee name who is given Pune as Shipping Address?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where shipping_address='pune'));
+
++------------+
+| first_name |
++------------+
+| rohit      |
+| hardik     |
++------------+
+
+28. WAQTD Employee name who bought products which are made by US?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where made_in_country='us'));
+
++------------+
+| first_name |
++------------+
+| virat      |
+| rishabn    |
++------------+
+
+29. WAQTD Employee name who ordered more then 10 products which are made by India?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where  quantity>10 and made_in_country='india'));
+
++------------+
+| first_name |
++------------+
+| sachin     |
++------------+
+
+30. WAQTD Employee name whose Shipping Address is Hyderabad and Product made by US?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where  shipping_address='hyderabad' and made_in_country='us'));
++------------+
+| first_name |
++------------+
+| virat      |
++------------+
+31. WAQTD Employee name who bought Printer which is made by US?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where  pname='printer' and made_in_country='us'));
+
++------------+
+| first_name |
++------------+
+| rishabn    |
++------------+
+32. WAQTD Employee name who has given more orders?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where  quantity=(select max(quantity) from Orders1)));
++------------+
+| first_name |
++------------+
+| surya      |
++------------+
+33. WAQTD Employee name First Class products and made by either India or China?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where  pquality='first' and made_in_country='india' or made_in_country='china'));
+
++------------+
+| first_name |
++------------+
+| sachin     |
+| hardik     |
++------------+
+
+
+34. WAQTD Products names which are made by US?
+
+select  pname from productsdata where pid in(
+select pno from Orders1 where made_in_country='us');
+
++---------+
+| pname   |
++---------+
+| Laptop  |
+| Printer |
++---------+
+35. WAQTD Employee name who did not by made in China products?
+
+select first_name from employeesdata where empid in(
+select eno from productsdata where pid in(
+select pno from  Orders1 where  not  made_in_country='china'));
++------------+
+| first_name |
++------------+
+| virat      |
+| rohit      |
+| surya      |
+| sachin     |
+| rishabn    |
++------------+
+36. WAQTD Shipping Address of Married Employees?
+
+select shipping_address from  Orders1 where  pno in(
+select pid from productsdata where eno in(
+select  empid from employeesdata where marital_status='married'));
++------------------+
+| shipping_address |
++------------------+
+| Hyderabad        |
++------------------+
+
+37. WAQTD Shipping Address of Less Salaried TCS Employees?
+
+select shipping_address from  Orders1 where  pno in(
+select pid from productsdata where eno in(
+select  empid from employeesdata where salary in(select min(salary) from employeesdata where company='tcs')));
++------------------+
+| shipping_address |
++------------------+
+| Hyderabad        |
+| Chennai          |
+| Pune             |
++------------------+
+
+38. WAQTD Orders of employee who is working on Flask in Delhi with 1 year Exp?
+
+select quantity from  Orders1 where  pno in(
+select pid from productsdata where eno in(
+select  empid from employeesdata where skill='flask' and location='delhi' and experience=1));
+
++----------+
+| quantity |
++----------+
+|       50 |
++----------+
+
+39. WAQTD made in country name of Second Class Sony Company Computer Product?
+
+select made_in_country from  Orders1 where  pno in(
+select pid from productsdata where  pquality='second' and pname='computer' and mfg_company='sony');
+
++-----------------+
+| made_in_country |
++-----------------+
+| Germany         |
++-----------------+
+40. WAQTD products names which are not having made in country name?
+
+select  pname from productsdata where pid not in(
+select pno from Orders1 );
+
++-------+
+| pname |
++-------+
+| Chair |
+| Bag   |
++-------+
+
+41. WAQTD Made in country name which made Table?
+
+select made_in_country from  Orders1 where  pno in(
+select pid from productsdata where pname='table');
+
++-----------------+
+| made_in_country |
++-----------------+
+| India           |
++-----------------+
+
+42. WAQTD Shipping Addresses or unmarried employees who are working in CTS in Mumbai?
+
+select shipping_address,marital_status from  employeesdata inner join productsdata on 
+employeesdata.empid=productsdata.eno inner join Orders1 on productsdata.pid=Orders1.pno
+where company='cts' and location='mumbai';
+
++------------------+
+| shipping_address |
++------------------+
+| Chennai          |
++------------------+
+43. WAQTD Employee names, Products names and orders quantity?
+
+select first_name,pname, quantity from  employeesdata inner join productsdata on 
+employeesdata.empid=productsdata.eno inner join Orders1 on productsdata.pid=Orders1.pno;
+
++------------+----------+----------+
+| first_name | pname    | quantity |
++------------+----------+----------+
+| virat      | Laptop   |       10 |
+| rohit      | TV       |       25 |
+| surya      | Mobile   |      100 |
+| virat      | Computer |        5 |
+| rohit      | Mouse    |        9 |
+| sachin     | Table    |       12 |
+| hardik     | Pen      |       50 |
+| rishabn    | Printer  |        2 |
++------------+----------+----------+
+44. WAQTD Employee First Names and their Shipping Addresses?
+
+select first_name,shipping_address from employeesdata inner join productsdata on 
+ employeesdata.empid= productsdata.eno inner join Orders1 on productsdata.pid=Orders1.pno;
++------------+------------------+
+| first_name | shipping_address |
++------------+------------------+
+| virat      | Hyderabad        |
+| rohit      | Bangalore        |
+| surya      | Bangalore        |
+| virat      | Chennai          |
+| rohit      | Pune             |
+| sachin     | Hyderabad        |
+| hardik     | Pune             |
+| rishabn    | Chennai          |
++------------+------------------+
+45. WAQTD Products names and their made in country names?
+
+select pname,made_in_country
+ from productsdata inner join Orders1 on productsdata.pid=Orders1.pno;
++----------+-----------------+
+| pname    | made_in_country |
++----------+-----------------+
+| Laptop   | US              |
+| TV       | Canada          |
+| Mobile   | Canada          |
+| Computer | Germany         |
+| Mouse    | India           |
+| Table    | India           |
+| Pen      | China           |
+| Printer  | US              |
++----------+-----------------+
+46. WAQTD Employee names and Product names which are made by India?
+
+select first_name,pname from  employeesdata inner join productsdata on 
+employeesdata.empid=productsdata.eno inner join Orders1 on productsdata.pid=Orders1.pno where made_in_country='india';
++------------+-------+
+| first_name | pname |
++------------+-------+
+| rohit      | Mouse |
+| sachin     | Table |
++------------+-------+
+
+47. WAQTD Employee names, products name whose salary is above 30000?
+
+select first_name,pname from employeesdata inner join productsdata on employeesdata.empid=productsdata.eno 
+where salary>30000;
++------------+-------+
+| first_name | pname |
++------------+-------+
+| sachin     | Table |
++------------+-------+
+48. WAQTD Employee names and Products names which are First Class Products only?
+
+select first_name,pname from employeesdata inner join productsdata on employeesdata.empid=productsdata.eno 
+where pquality='first';
+
++------------+--------+
+| first_name | pname  |
++------------+--------+
+| virat      | Laptop |
+| rohit      | TV     |
+| sachin     | Table  |
+| hardik     | Pen    |
++------------+--------+
+
+49. WAQTD Employee names, salaries, product cost which are made by Canada?
+
+select first_name,salary,pcost from  employeesdata inner join productsdata on 
+employeesdata.empid=productsdata.eno inner join Orders1 on productsdata.pid=Orders1.pno
+where made_in_country='canada';
++------------+--------+-------+
+| first_name | salary | pcost |
++------------+--------+-------+
+| rohit      |  30000 | 45000 |
+| surya      |  19000 | 30000 |
++------------+--------+-------+
+
+50. WAQTD Employees names, Products names who has given orders between 10 and 20(Both are including)?
+
+select first_name,salary from  employeesdata inner join productsdata on 
+employeesdata.empid=productsdata.eno inner join Orders1 on productsdata.pid=Orders1.pno
+where quantity  between 10 and 20;
++------------+--------+
+| first_name | salary |
++------------+--------+
+| virat      |  20000 |
+| sachin     |  35000 |
++------------+--------+

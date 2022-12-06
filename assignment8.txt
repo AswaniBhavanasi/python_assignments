@@ -1,0 +1,92 @@
+#1
+'''lst=[10,11,13,14,9,8]
+print([i for i in lst if i%2==0])'''
+
+#2
+'''lst=[10,'a',True,'b',False]
+print([i for i in lst if type(i) is str])'''
+
+#3
+'''lst=[12,15,27,20,5]
+print([i for i in lst if i%5==0])'''
+
+#4
+'''lst=[10,'a',20,True,30,'b',40]
+print( len([i for i in lst if type(i)==int]))'''
+#5
+'''st='python language'
+print(len(st))'''
+#6
+'''st='python narayana tech house hyd'
+st= st.split()
+print(len(st))'''
+#7
+'''st='python language'
+print([i for i in st if i in 'aeiou'])'''
+#8
+'''st='python language'
+print(len([i for i in st if i in 'aeiou']))'''
+#9
+'''st='python is a simple  language'
+print(len([j for i in st.split() for j in i]))'''
+#10
+'''st='python language'
+print(len([j for i in st.split() for j in i if  j not in 'aeiou']))'''
+
+#11
+'''st='python is simple and easy language'
+print([i for i in st.split() if i[0] in 'aeiou'])'''
+#12
+'''st='python is simple and easy language'
+print([i for i in st.split() if i[-1] not in 'aeiou'])'''
+#13
+'''st='python is simple and easy language'
+print([i for i in st.split() if 'a'in i if i.count('a')==2])'''
+
+#14
+'''st='python is simple and easy language'
+print([len(i) for i in st.split()]) '''
+
+#15
+'''st='python is simple and easy language'
+print([i[0]+i[-1] for i in st.split()])'''
+
+#16
+'''st='python is simple and easy language'
+print([i for i in st.split() if 'a' in i])'''
+
+#17
+'''st='python is simple and easy language'
+print([i for i in st.split() if 'e' not in i])'''
+
+#18
+'''st='python is simple and easy language'
+print([i for i in st.split() if len(i)<=4])'''
+
+#19
+'''st='python is simple and easy language'
+print([i for i in st.split() if len(i)%2!=0])'''
+
+#20
+'''st='python is number one language'
+print([i for i in st.split() if i[0] in 'aeiouAeIOU' and i[-1] in 'aeiou'])'''
+
+#21
+'''names=['madam','python','dad','language','eye','malayalam']
+print([i for i in names if i[-1::-1] in names])'''
+
+#22
+'''names=['madam','python','dad','language','eye','malayalam']
+print([i for i in names if i[-1::-1] not  in names])'''
+
+#23
+  '''names=['madam','python','dad','language','eye','malayalam']
+print([i for i in names if i[-1::-1] in names and i.startswith('m')])'''
+
+#24
+'''names=['madam','python','dad','language','eye','malayalam']
+print([i for i in names if i[-1::-1] in names and len(i)>3])'''
+
+#25
+'''names=['madam','python','dad','language','eye','malayalam']
+print([max(names,key=len)])'''

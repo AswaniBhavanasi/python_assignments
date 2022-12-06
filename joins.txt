@@ -1,0 +1,979 @@
+
+mysql> select * from employeesdata;
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+| empid | first_name | last_name  | age  | company   | salary | location | skill  | experience | marital_status |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+|   101 | virat      | kohli      |   22 | tcs       |  20000 | hyd      | python |          2 | unmarried      |
+|   102 | rohit      | sharma     |   24 | wipro     |  30000 | delhi    | django |          3 | unmarried      |
+|   103 | surya      | yadav      |   20 | infosys   |  19000 | chennai  | python |          1 | unmarried      |
+|   104 | sachin     | tendulkarm |   25 | microsoft |  35000 | mumbai   | flask  |          9 | married        |
+|   105 | hardik     | panday     |   22 | tcs       |  20000 | delhi    | flask  |          1 | unmarried      |
+|   106 | rishabn    | pant       |   23 | cts       |  23000 | mumbai   | java   |          2 | unmarried      |
+|   107 | jasprit    | bumrah     |   21 | microsoft |  26000 | hyd      | flask  |          2 | unmarried      |
+|   108 | dinesh     | karthik    |   24 | cts       |  24000 | delhi    | java   |          3 | married        |
+|   109 | sanju      | samson     |   22 | infosys   |  22500 | chennai  | python |          2 | unmarried      |
+|   110 | ms         | dhoni      |   25 | tcs       |  30000 | chennai  | python |          5 | married        |
+|   111 | ravindra   | jadeja     | NULL | infosys   |  29000 | mumbai   | django |          4 | married        |
+|   112 | kuldeep    | yadav      |   30 | microsoft |  28000 | delhi    | python |          4 | married        |
+|   113 | axar       | patel      | NULL | cts       |  27000 | chennai  | java   |          5 | married        |
+|   114 | ambati     | rayudu     |   28 | tcs       |  31000 | delhi    | python |          5 | married        |
+|   115 | gautham    | gambhir    |   31 | microsoft |  32000 | chennai  | python |          6 | married        |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+15 rows in set (0.01 sec)
+
+mysql>
+mysql> select first_name from employeesdata where skill='Python';
++------------+
+| first_name |
++------------+
+| virat      |
+| surya      |
+| sanju      |
+| ms         |
+| kuldeep    |
+| ambati     |
+| gautham    |
++------------+
+7 rows in set (0.03 sec)
+
+mysql> select first_name,experience from employeesdata where skill='Python';
++------------+------------+
+| first_name | experience |
++------------+------------+
+| virat      |          2 |
+| surya      |          1 |
+| sanju      |          2 |
+| ms         |          5 |
+| kuldeep    |          4 |
+| ambati     |          5 |
+| gautham    |          6 |
++------------+------------+
+7 rows in set (0.11 sec)
+
+mysql> select first_name,experience from employeesdata where skill='Python' order by exprerience desc;
+ERROR 1054 (42S22): Unknown column 'exprerience' in 'order clause'
+mysql>
+mysql> select first_name,experience from employeesdata where skill='Python' order by experience desc;
++------------+------------+
+| first_name | experience |
++------------+------------+
+| gautham    |          6 |
+| ms         |          5 |
+| ambati     |          5 |
+| kuldeep    |          4 |
+| virat      |          2 |
+| sanju      |          2 |
+| surya      |          1 |
++------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select first_name,experience from employeesdata where skill='Python' order by experience desc limit 1;
++------------+------------+
+| first_name | experience |
++------------+------------+
+| gautham    |          6 |
++------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select first_name from employeesdata where skill='Python' order by experience desc limit 1;
++------------+
+| first_name |
++------------+
+| gautham    |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary)
+    -> from employeesdata
+    -> where marital_status = 'married';
++-------------+
+| sum(salary) |
++-------------+
+|      236000 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select *
+    -> from employeesdata
+    -> where first_name like 'S%';
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+| empid | first_name | last_name  | age  | company   | salary | location | skill  | experience | marital_status |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+|   103 | surya      | yadav      |   20 | infosys   |  19000 | chennai  | python |          1 | unmarried      |
+|   104 | sachin     | tendulkarm |   25 | microsoft |  35000 | mumbai   | flask  |          9 | married        |
+|   109 | sanju      | samson     |   22 | infosys   |  22500 | chennai  | python |          2 | unmarried      |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+3 rows in set (0.02 sec)
+
+mysql> select first_name
+    -> from employeesdata
+    -> where first_name like '%A';
++------------+
+| first_name |
++------------+
+| surya      |
+| ravindra   |
++------------+
+2 rows in set (0.00 sec)
+
+mysql> select first_name, last_name
+    -> from employeesdata
+    -> where company like '%S';
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| virat      | kohli     |
+| surya      | yadav     |
+| hardik     | panday    |
+| rishabn    | pant      |
+| dinesh     | karthik   |
+| sanju      | samson    |
+| ms         | dhoni     |
+| ravindra   | jadeja    |
+| axar       | patel     |
+| ambati     | rayudu    |
++------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select first_name, last_name, company
+    -> from employeesdata
+    -> where company like '%S';
++------------+-----------+---------+
+| first_name | last_name | company |
++------------+-----------+---------+
+| virat      | kohli     | tcs     |
+| surya      | yadav     | infosys |
+| hardik     | panday    | tcs     |
+| rishabn    | pant      | cts     |
+| dinesh     | karthik   | cts     |
+| sanju      | samson    | infosys |
+| ms         | dhoni     | tcs     |
+| ravindra   | jadeja    | infosys |
+| axar       | patel     | cts     |
+| ambati     | rayudu    | tcs     |
++------------+-----------+---------+
+10 rows in set (0.00 sec)
+
+mysql> select marital_status
+    -> from employeesdata
+    -> where skill like '______';
++----------------+
+| marital_status |
++----------------+
+| unmarried      |
+| unmarried      |
+| unmarried      |
+| unmarried      |
+| married        |
+| married        |
+| married        |
+| married        |
+| married        |
++----------------+
+9 rows in set (0.00 sec)
+
+mysql> select marital_status, skill
+    -> from employeesdata
+    -> where skill like '______';
++----------------+--------+
+| marital_status | skill  |
++----------------+--------+
+| unmarried      | python |
+| unmarried      | django |
+| unmarried      | python |
+| unmarried      | python |
+| married        | python |
+| married        | django |
+| married        | python |
+| married        | python |
+| married        | python |
++----------------+--------+
+9 rows in set (0.00 sec)
+
+mysql> show tables;
++-----------------------+
+| Tables_in_employeesdb |
++-----------------------+
+| employeesdata         |
++-----------------------+
+1 row in set (0.05 sec)
+
+mysql> create table students(sid int, sname varchar(20), loc varchar(20));
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> insert into students values(1,'Sai','Hyd'),(2,'Nani','Hyd'),(3,'Satya','Pune'),(4,'Rohan','Chennai'),(5,'Rajesh','Pune');
+Query OK, 5 rows affected (0.13 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> create table course(cid int, cname varchar(20), fee int, sno int);
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> insert into course values(10,'Python',3000,1);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into course values(11,'Django',3000,2);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into course values(12,'Flask',1000,3);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into course values(13,'UI',1000,6);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into course values(14,'MySQL',10000,7);
+Query OK, 1 row affected (0.07 sec)
+
+mysql>
+mysql> select * from students;
++------+--------+---------+
+| sid  | sname  | loc     |
++------+--------+---------+
+|    1 | Sai    | Hyd     |
+|    2 | Nani   | Hyd     |
+|    3 | Satya  | Pune    |
+|    4 | Rohan  | Chennai |
+|    5 | Rajesh | Pune    |
++------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from course;
++------+--------+-------+------+
+| cid  | cname  | fee   | sno  |
++------+--------+-------+------+
+|   10 | Python |  3000 |    1 |
+|   11 | Django |  3000 |    2 |
+|   12 | Flask  |  1000 |    3 |
+|   13 | UI     |  1000 |    6 |
+|   14 | MySQL  | 10000 |    7 |
++------+--------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select *
+    -> from students inner join course
+    -> students.sid inner join course.sno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.sid inner join course.sno' at line 3
+mysql>
+mysql> select *
+    -> from students inner join course
+    -> on students.sid inner join course.sno;
+ERROR 1049 (42000): Unknown database 'course'
+mysql>
+mysql>
+mysql> select *
+    -> from students inner join course
+    -> on students.sid = course.sno;
++------+-------+------+------+--------+------+------+
+| sid  | sname | loc  | cid  | cname  | fee  | sno  |
++------+-------+------+------+--------+------+------+
+|    1 | Sai   | Hyd  |   10 | Python | 3000 |    1 |
+|    2 | Nani  | Hyd  |   11 | Django | 3000 |    2 |
+|    3 | Satya | Pune |   12 | Flask  | 1000 |    3 |
++------+-------+------+------+--------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> select sid, sno
+    -> from students inner join course
+    -> on students.sid = course.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> select students.sid, course.sno
+    -> from students inner join course
+    -> on students.sid = course.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> select s.sid, c.sno
+    -> from students as s inner join course as c
+    -> on s.sid = c.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> select s.sid as Student_Id, c.sno as Student_No
+    -> from students as s inner join course as c
+    -> on s.sid = c.sno;
++------------+------------+
+| Student_Id | Student_No |
++------------+------------+
+|          1 |          1 |
+|          2 |          2 |
+|          3 |          3 |
++------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select sid, sno
+    -> from students left outer join course
+    -> on students.sid = course.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
+|    4 | NULL |
+|    5 | NULL |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select sid, sno
+    -> from students left outer join course
+    -> on students.sid = course.sno
+    -> where course.sno is null;
++------+------+
+| sid  | sno  |
++------+------+
+|    4 | NULL |
+|    5 | NULL |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> select sid
+    -> from students left outer join course
+    -> on students.sid = course.sno
+    -> where course.sno is null;
++------+
+| sid  |
++------+
+|    4 |
+|    5 |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select *
+    -> from students left outer join course
+    -> on students.sid = course.sno;
++------+--------+---------+------+--------+------+------+
+| sid  | sname  | loc     | cid  | cname  | fee  | sno  |
++------+--------+---------+------+--------+------+------+
+|    1 | Sai    | Hyd     |   10 | Python | 3000 |    1 |
+|    2 | Nani   | Hyd     |   11 | Django | 3000 |    2 |
+|    3 | Satya  | Pune    |   12 | Flask  | 1000 |    3 |
+|    4 | Rohan  | Chennai | NULL | NULL   | NULL | NULL |
+|    5 | Rajesh | Pune    | NULL | NULL   | NULL | NULL |
++------+--------+---------+------+--------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> select sname
+    -> from students left outer join course
+    -> on students.sid = course.sno
+    -> where course.cname is null;
++--------+
+| sname  |
++--------+
+| Rohan  |
+| Rajesh |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select sname
+    -> from students left outer join course
+    -> on students.sid = course.sno
+    -> where course.cname is not null;
++-------+
+| sname |
++-------+
+| Sai   |
+| Nani  |
+| Satya |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select sid, sno
+    -> from students right outer join courses
+    -> on students.sid = courses.sno;
+ERROR 1146 (42S02): Table 'employeesdb.courses' doesn't exist
+mysql> select sid, sno
+    -> from students right outer join course
+    -> on students.sid = course.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
+| NULL |    6 |
+| NULL |    7 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select *
+    -> from students right outer join course
+    -> on students.sid = course.sno;
++------+-------+------+------+--------+-------+------+
+| sid  | sname | loc  | cid  | cname  | fee   | sno  |
++------+-------+------+------+--------+-------+------+
+|    1 | Sai   | Hyd  |   10 | Python |  3000 |    1 |
+|    2 | Nani  | Hyd  |   11 | Django |  3000 |    2 |
+|    3 | Satya | Pune |   12 | Flask  |  1000 |    3 |
+| NULL | NULL  | NULL |   13 | UI     |  1000 |    6 |
+| NULL | NULL  | NULL |   14 | MySQL  | 10000 |    7 |
++------+-------+------+------+--------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select cname
+    -> from students right outer join course
+    -> on students.sid = course.sno
+    -> where students.sname is null;
++-------+
+| cname |
++-------+
+| UI    |
+| MySQL |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from students left outer join course on students.sid = course.sno
+    -> union
+    -> select * from students right outer join course on students.sid = course.sno;
++------+--------+---------+------+--------+-------+------+
+| sid  | sname  | loc     | cid  | cname  | fee   | sno  |
++------+--------+---------+------+--------+-------+------+
+|    1 | Sai    | Hyd     |   10 | Python |  3000 |    1 |
+|    2 | Nani   | Hyd     |   11 | Django |  3000 |    2 |
+|    3 | Satya  | Pune    |   12 | Flask  |  1000 |    3 |
+|    4 | Rohan  | Chennai | NULL | NULL   |  NULL | NULL |
+|    5 | Rajesh | Pune    | NULL | NULL   |  NULL | NULL |
+| NULL | NULL   | NULL    |   13 | UI     |  1000 |    6 |
+| NULL | NULL   | NULL    |   14 | MySQL  | 10000 |    7 |
++------+--------+---------+------+--------+-------+------+
+7 rows in set (0.00 sec)
+
+mysql> select sid,sno from students left outer join course on students.sid = course.sno
+    -> union
+    -> select sid, sno from students right outer join course on students.sid = course.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
+|    4 | NULL |
+|    5 | NULL |
+| NULL |    6 |
+| NULL |    7 |
++------+------+
+7 rows in set (0.00 sec)
+
+mysql> select sid, sno from students, course;
++------+------+
+| sid  | sno  |
++------+------+
+|    5 |    1 |
+|    4 |    1 |
+|    3 |    1 |
+|    2 |    1 |
+|    1 |    1 |
+|    5 |    2 |
+|    4 |    2 |
+|    3 |    2 |
+|    2 |    2 |
+|    1 |    2 |
+|    5 |    3 |
+|    4 |    3 |
+|    3 |    3 |
+|    2 |    3 |
+|    1 |    3 |
+|    5 |    6 |
+|    4 |    6 |
+|    3 |    6 |
+|    2 |    6 |
+|    1 |    6 |
+|    5 |    7 |
+|    4 |    7 |
+|    3 |    7 |
+|    2 |    7 |
+|    1 |    7 |
++------+------+
+25 rows in set (0.00 sec)
+
+mysql> select sid,sno
+    -> from students, course
+    -> where sid = sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> use nthinfodb;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_nthinfodb |
++---------------------+
+| cktab               |
+| fktab               |
+| players             |
+| students            |
++---------------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from players;
++------+----------+------+------+------+------+------+------+------------+
+| id   | name     | age  | test | odi  | t20  | 50s  | 100s | country    |
++------+----------+------+------+------+------+------+------+------------+
+|    1 | rahul    |   30 |   43 |   45 |   66 |   43 |   14 | india      |
+|    2 | surya    |   31 |    0 |   13 |   33 |   37 |   15 | india      |
+|    3 | rohit    |   35 |   45 |  233 |  141 |   87 |   42 | india      |
+|    4 | shakib   |   35 |   63 |  221 |  101 |   89 |   14 | bangladesh |
+|    5 | wasim    |   33 |    0 |   55 |   58 |    5 |    0 | pakistan   |
+|    6 | williams |   35 |   14 |  147 |   58 |   49 |    9 | zimbabwe   |
+|    7 | moeen    |   35 |   64 |  121 |   62 |   26 |    8 | england    |
+|    8 | curran   |   24 |   24 |   16 |   27 |    4 |    0 | england    |
+|    9 | warner   |   35 |   96 |  138 |   91 |   82 |   43 | australia  |
+|   10 | maxwell  |   33 |    7 |  127 |   90 |   32 |    6 | australia  |
++------+----------+------+------+------+------+------+------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select name from players where 100s>1;
++----------+
+| name     |
++----------+
+| rahul    |
+| surya    |
+| rohit    |
+| shakib   |
+| williams |
+| moeen    |
+| warner   |
+| maxwell  |
++----------+
+8 rows in set (0.00 sec)
+
+mysql> select name,test from players where test<10;
++---------+------+
+| name    | test |
++---------+------+
+| surya   |    0 |
+| wasim   |    0 |
+| maxwell |    7 |
++---------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from players order byn 100s desc limit 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'byn 100s desc limit 3' at line 1
+mysql> select * from players order by 100s desc limit 3;
++------+--------+------+------+------+------+------+------+-----------+
+| id   | name   | age  | test | odi  | t20  | 50s  | 100s | country   |
++------+--------+------+------+------+------+------+------+-----------+
+|    9 | warner |   35 |   96 |  138 |   91 |   82 |   43 | australia |
+|    3 | rohit  |   35 |   45 |  233 |  141 |   87 |   42 | india     |
+|    2 | surya  |   31 |    0 |   13 |   33 |   37 |   15 | india     |
++------+--------+------+------+------+------+------+------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> select name from players order by test desc limit 1;
++--------+
+| name   |
++--------+
+| warner |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select name from players where  test =(select max(test) from players;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select name from players where  test =(select max(test) from players);
++--------+
+| name   |
++--------+
+| warner |
++--------+
+1 row in set (0.00 sec)
+
+mysql> use employeesdb;
+Database changed
+mysql> select * from employeesdata;
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+| empid | first_name | last_name  | age  | company   | salary | location | skill  | experience | marital_status |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+|   101 | virat      | kohli      |   22 | tcs       |  20000 | hyd      | python |          2 | unmarried      |
+|   102 | rohit      | sharma     |   24 | wipro     |  30000 | delhi    | django |          3 | unmarried      |
+|   103 | surya      | yadav      |   20 | infosys   |  19000 | chennai  | python |          1 | unmarried      |
+|   104 | sachin     | tendulkarm |   25 | microsoft |  35000 | mumbai   | flask  |          9 | married        |
+|   105 | hardik     | panday     |   22 | tcs       |  20000 | delhi    | flask  |          1 | unmarried      |
+|   106 | rishabn    | pant       |   23 | cts       |  23000 | mumbai   | java   |          2 | unmarried      |
+|   107 | jasprit    | bumrah     |   21 | microsoft |  26000 | hyd      | flask  |          2 | unmarried      |
+|   108 | dinesh     | karthik    |   24 | cts       |  24000 | delhi    | java   |          3 | married        |
+|   109 | sanju      | samson     |   22 | infosys   |  22500 | chennai  | python |          2 | unmarried      |
+|   110 | ms         | dhoni      |   25 | tcs       |  30000 | chennai  | python |          5 | married        |
+|   111 | ravindra   | jadeja     | NULL | infosys   |  29000 | mumbai   | django |          4 | married        |
+|   112 | kuldeep    | yadav      |   30 | microsoft |  28000 | delhi    | python |          4 | married        |
+|   113 | axar       | patel      | NULL | cts       |  27000 | chennai  | java   |          5 | married        |
+|   114 | ambati     | rayudu     |   28 | tcs       |  31000 | delhi    | python |          5 | married        |
+|   115 | gautham    | gambhir    |   31 | microsoft |  32000 | chennai  | python |          6 | married        |
++-------+------------+------------+------+-----------+--------+----------+--------+------------+----------------+
+15 rows in set (0.00 sec)
+
+mysql> select first_name from employeesdata where marital_status='married' order by salary desc limit 1;
++------------+
+| first_name |
++------------+
+| sachin     |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select first_name from employeesdata where marital_status='unmarried' order by salary desc limit 1;
++------------+
+| first_name |
++------------+
+| rohit      |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select location ,count(firs_name) from employeesdata group by location having count(first_name)>2;
+ERROR 1054 (42S22): Unknown column 'firs_name' in 'field list'
+mysql> select location ,count(first_name) from employeesdata group by location having count(first_name)>2;
++----------+-------------------+
+| location | count(first_name) |
++----------+-------------------+
+| delhi    |                 5 |
+| chennai  |                 5 |
+| mumbai   |                 3 |
++----------+-------------------+
+3 rows in set (0.10 sec)
+
+mysql> select first_name ,skill from employeesdata where company='tcs' order by  salary desc limit 1;
++------------+--------+
+| first_name | skill  |
++------------+--------+
+| ambati     | python |
++------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select first_name,skill,max(salary) from employeesdata where company='tcs';
++------------+--------+-------------+
+| first_name | skill  | max(salary) |
++------------+--------+-------------+
+| virat      | python |       31000 |
++------------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select location ,count(first_name) from employeesdata group by location having count(first_name)>=2;
++----------+-------------------+
+| location | count(first_name) |
++----------+-------------------+
+| hyd      |                 2 |
+| delhi    |                 5 |
+| chennai  |                 5 |
+| mumbai   |                 3 |
++----------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name ,skill from employeesdata where company='tcs' order by  salary desc;
++------------+--------+
+| first_name | skill  |
++------------+--------+
+| ambati     | python |
+| ms         | python |
+| virat      | python |
+| hardik     | flask  |
++------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select first_name from employeesdata where marital_status='unmarried' order by salary desc ;
++------------+
+| first_name |
++------------+
+| rohit      |
+| jasprit    |
+| rishabn    |
+| sanju      |
+| virat      |
+| hardik     |
+| surya      |
++------------+
+7 rows in set (0.00 sec)
+
+mysql> select first_name from employeesdata where marital_status='unmarried' order by salary asc;
++------------+
+| first_name |
++------------+
+| surya      |
+| virat      |
+| hardik     |
+| sanju      |
+| rishabn    |
+| jasprit    |
+| rohit      |
++------------+
+7 rows in set (0.00 sec)
+
+mysql> select first_name from employeesdata where marital_status='unmarried' order by salary asc limit 1;
++------------+
+| first_name |
++------------+
+| surya      |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select first
+    -> select first_name from employeesdata where experience order by experience desc limit 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select first_name from employeesdata where experience order by experience desc l' at line 2
+mysql> select first_name from employeesdata where experience order by first_name desc limit 1;
++------------+
+| first_name |
++------------+
+| virat      |
++------------+
+1 row in set (0.11 sec)
+
+mysql> select * from employeesdata where experience order by first_name desc limit 1;
++-------+------------+-----------+------+---------+--------+----------+--------+------------+----------------+
+| empid | first_name | last_name | age  | company | salary | location | skill  | experience | marital_status |
++-------+------------+-----------+------+---------+--------+----------+--------+------------+----------------+
+|   101 | virat      | kohli     |   22 | tcs     |  20000 | hyd      | python |          2 | unmarried      |
++-------+------------+-----------+------+---------+--------+----------+--------+------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employeesdata where experience order by experience desc limit 1;
++-------+------------+------------+------+-----------+--------+----------+-------+------------+----------------+
+| empid | first_name | last_name  | age  | company   | salary | location | skill | experience | marital_status |
++-------+------------+------------+------+-----------+--------+----------+-------+------------+----------------+
+|   104 | sachin     | tendulkarm |   25 | microsoft |  35000 | mumbai   | flask |          9 | married        |
++-------+------------+------------+------+-----------+--------+----------+-------+------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select location ,count(first_name) from employeesdata group by location having count(first_name)>=2;
++----------+-------------------+
+| location | count(first_name) |
++----------+-------------------+
+| hyd      |                 2 |
+| delhi    |                 5 |
+| chennai  |                 5 |
+| mumbai   |                 3 |
++----------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> create table students(sid int,sname varchar(20),loc varchar(20));
+ERROR 1050 (42S01): Table 'students' already exists
+mysql> create table student(sid int,sname varchar(20),loc varchar(20));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> insert into student values(1,'sai','hyd'),(2,'nani','hyd'),(3,'satya','pune'),(4,'rohan','chennai'),(5,'rajesh','bng');
+Query OK, 5 rows affected (0.09 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> create table course(cid int,cname varchar(20),fee int ,sno int);
+ERROR 1050 (42S01): Table 'course' already exists
+mysql> create table courses(cid int,cname varchar(20),fee int ,sno int);
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> insert into courses values(10,'python',3000,1),(11,'django',3000,2),(12,'flask',1000,3);
+Query OK, 3 rows affected (0.05 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into courses values(13,'ui',2000,6),(14,'mysql',5000,7);
+Query OK, 2 rows affected (0.06 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++------+--------+---------+
+| sid  | sname  | loc     |
++------+--------+---------+
+|    1 | sai    | hyd     |
+|    2 | nani   | hyd     |
+|    3 | satya  | pune    |
+|    4 | rohan  | chennai |
+|    5 | rajesh | bng     |
++------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from courses;
++------+--------+------+------+
+| cid  | cname  | fee  | sno  |
++------+--------+------+------+
+|   10 | python | 3000 |    1 |
+|   11 | django | 3000 |    2 |
+|   12 | flask  | 1000 |    3 |
+|   13 | ui     | 2000 |    6 |
+|   14 | mysql  | 5000 |    7 |
++------+--------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student inner join courses on student.sid=couses.sno;
+ERROR 1054 (42S22): Unknown column 'couses.sno' in 'on clause'
+mysql> select * from student inner join courses on student.sid=courses.sno;
++------+-------+------+------+--------+------+------+
+| sid  | sname | loc  | cid  | cname  | fee  | sno  |
++------+-------+------+------+--------+------+------+
+|    1 | sai   | hyd  |   10 | python | 3000 |    1 |
+|    2 | nani  | hyd  |   11 | django | 3000 |    2 |
+|    3 | satya | pune |   12 | flask  | 1000 |    3 |
++------+-------+------+------+--------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> select student.sid,courses.sno from student inner join courses on student.sid=courses.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> select s.sid=c.sno from student as s inner join courses as c on s.sid=c.sno;
++-------------+
+| s.sid=c.sno |
++-------------+
+|           1 |
+|           1 |
+|           1 |
++-------------+
+3 rows in set (0.00 sec)
+
+mysql> select s.sid,c.sno from student as s inner join courses as c on s.sid=c.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> select student.sid,courses.sno from student left outer join courses on student.sid=courses.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
+|    4 | NULL |
+|    5 | NULL |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select student.sid,courses.sno from student left outer join courses on student.sid=courses.sno where courses.sno is null;
++------+------+
+| sid  | sno  |
++------+------+
+|    4 | NULL |
+|    5 | NULL |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> select sname from student left outer join courses on student.sid=courses.sno where courses.cname is null;
++--------+
+| sname  |
++--------+
+| rohan  |
+| rajesh |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select sname from student left outer join courses on student.sid=courses.sno where courses.cname is not  null;
++-------+
+| sname |
++-------+
+| sai   |
+| nani  |
+| satya |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> select student.sid,courses.sno from student right outer join courses on student.sid=courses.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
+| NULL |    6 |
+| NULL |    7 |
++------+------+
+5 rows in set (0.00 sec)
+
+mysql> select cname from student right outer join courses on student.sid=courses.sno where student.sname is null;
++-------+
+| cname |
++-------+
+| ui    |
+| mysql |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select sid,sno from student left outer join courses  on student.sid=courses.sno
+    -> union
+    -> select sid,sno from student right outer join courses  on student.sid=courses.sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
+|    4 | NULL |
+|    5 | NULL |
+| NULL |    6 |
+| NULL |    7 |
++------+------+
+7 rows in set (0.00 sec)
+
+mysql> select sid,sno from student,courses;
++------+------+
+| sid  | sno  |
++------+------+
+|    5 |    1 |
+|    4 |    1 |
+|    3 |    1 |
+|    2 |    1 |
+|    1 |    1 |
+|    5 |    2 |
+|    4 |    2 |
+|    3 |    2 |
+|    2 |    2 |
+|    1 |    2 |
+|    5 |    3 |
+|    4 |    3 |
+|    3 |    3 |
+|    2 |    3 |
+|    1 |    3 |
+|    5 |    6 |
+|    4 |    6 |
+|    3 |    6 |
+|    2 |    6 |
+|    1 |    6 |
+|    5 |    7 |
+|    4 |    7 |
+|    3 |    7 |
+|    2 |    7 |
+|    1 |    7 |
++------+------+
+25 rows in set (0.00 sec)
+
+mysql> select sid,sno from student,courses where sid=sno;
++------+------+
+| sid  | sno  |
++------+------+
+|    1 |    1 |
+|    2 |    2 |
+|    3 |    3 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>

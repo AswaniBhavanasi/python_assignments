@@ -1,0 +1,218 @@
+
+#1
+'''lst=[10, 11,13,14,9,8]
+newList=[]
+for i in lst:
+    if i%2==0:
+        newList.append(i)
+print(newList)'''
+
+#2
+'''lst=[10,'a',True,'b',False]
+newList=[]
+for i in lst:
+    if type(i) is str:
+        newList.append(i)
+print(newList)'''
+
+#3
+'''lst=[12,15,27,20,5]
+newList=[]
+for i in lst:
+    if i%5==0:
+        newList.append(i)
+print(newList)'''
+#4
+'''lst=[10,'a',20,True,30,'b',40]
+c=0
+for i in lst:
+    if type(i) is int:
+        c=c+1
+    
+print(c)'''
+
+#5
+'''st='python language'
+c=0
+for i in st:
+    if type(i) is str:
+        c=c+1
+    
+print(c)'''
+#6
+'''st='python narayana tech house hyd'
+
+st=st.split(' ')
+print(len(st))'''
+#7
+'''st='python language'
+newList=[]
+for i in st:
+    if i  in 'aeiouAEIOU':
+        newList.append(i)
+print(newList)'''
+#8
+'''st='python narayana'
+c=0
+for i in st:
+    if i in 'aeiouAEIOU':
+        c=c+1
+
+print(c)'''
+#9
+'''st='python is a simple language'
+c=0
+st=st.split()
+for i in st:
+    for j in i:
+        
+     c=c+1
+print(c)'''
+#10
+'''st='python language'
+
+c=0
+st=st.split()
+for i in st:
+    for j in i:
+        if j not in 'aeiouAEIOU':
+            c=c+1
+print(c)'''
+        
+#11
+'''st='python is simple and easy language'
+newList=[]
+for i in st.split():
+     if i[0] in 'aeiouAeIOU':
+         newList.append(i)
+print(newList)'''
+
+#12
+'''st='python is simple and easy language'
+newList=[]
+for i in st.split():
+    if i[-1] not in 'aeiouAEIOU':
+        newList.append(i)
+print(newList)'''
+#13
+'''st='python is simple and easy language'
+
+newList=[]
+for i in st.split():
+    if 'a' in i:
+        if i.count('a')==2:
+            newList.append(i)
+print(newList)'''
+
+#14
+'''st='python is simple and easy language'
+
+newList=[]
+for i in st.split():
+    newList.append(len(i))        
+print(newList)'''
+
+#15
+'''st='python is simple and easy language'
+newList=[]
+for i in st.split():
+    
+    newList.append(i[0]+i[-1])        
+print(newList)'''
+
+#16
+'''st='python is simple and easy language'
+
+newList=[]
+for i in st.split():
+    if 'a' in i:
+            newList.append(i)
+print(newList)'''
+
+#17
+'''st='python is simple and easy language'
+
+newList=[]
+for i in st.split():
+    if 'e'  not in i:
+        newLis t.append(i)
+print(newList)'''
+
+#18
+'''st='python is simple and easy language'
+
+newList=[]
+for i in st.split():
+    if len(i)<=4:
+        newList.append(i)
+print(newList)'''
+
+#19
+'''st='python is simple and easy language'
+
+newList=[]
+for i in st.split():
+    if len(i)%2!=0:
+        newList.append(i)        
+print(newList)''' 
+
+#20
+'''st='python is number one language'
+newList=[]
+for i in st.split():
+     if i[0] in 'aeiouAeIOU' and i[-1] in 'aeiou':
+         newList.append(i)
+print(newList)'''
+
+#21
+'''names=['madam','python','dad','language','eye','malayalam']
+newList=[]
+for i in names:
+    if i[-1::-1] in names:
+        newList.append(i)
+print(newList)'''
+
+#22
+'''names=['madam','python','dad','language','eye','malayalam']
+newList=[]
+for i in names:
+    if i[-1::-1]  not in names:
+        newList.append(i)
+print(newList)  '''
+
+#23
+'''names=['madam','python','dad','language','eye','malayalam']
+newList=[]
+for i in names:
+    if i[-1::-1]  in names and i.startswith('m'):
+        newList.append(i)
+print(newList)'''
+
+#24
+'''names=['madam','python','dad','language','eye','malayalam']
+newList=[]
+for i in names:
+    if i[-1::-1]  in names and len(i)>3:
+      newList.append(i)
+print(newList)'''
+ 
+#25
+'''names=['madam','python','dad','language','eye','malayalam']
+lst=[]
+lst1=[]
+lst2=[]
+for i in names:
+    if i[-1::-1]==i:
+        lst.append(i)
+        lst1.append(len(i))
+for i in lst:
+    if len(i)==max(lst1):
+        lst2.append(i)
+print(lst2)
+
+(or)
+a=[]
+for i in names:
+if  i==i[-1::-1]:
+a.append(i)
+print(max(a))
